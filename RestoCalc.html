@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>КАЛКУЛАТОР РЕСТО</title>
+<style>
+    /* Global Box Sizing */
+    * {
+        box-sizing: border-box;
+    }
+
+    :root {
+        --bg: #f7f9fc;
+        --card-bg: #ffffff;
+        --text: #333;
+        --accent: #0b5d1e;
+        --result-bg: #c8f5c8;
+        --button-bg: #d9534f;
+        --button-hover: #c9302c;
+        --toggle-bg: #444; /* Dark neutral for the toggle */
+    }
+
+    .dark {
+        --bg: #1e1e1e;
+        --card-bg: #2a2a2a;
+        --text: #ffffff;
+        --accent: #0b5d1e;
+        --result-bg: #197d3a;
+        --button-bg: #b33632;
+        --button-hover: #992b28;
+        --toggle-bg: #f1f1f1; /* Light neutral for the toggle in dark mode */
+    }
+
+	.dark input {
+		color: #000000 !important;
+	}
+
+    body {
+        font-family: Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        transition: background 0.3s, color 0.3s;
+        margin: 0;
+        padding: 20px;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 15px;
+        margin-top: 0;
+        font-weight: 600;
+        width: 100%;
+        max-width: 600px;
+    }
+
+    .container {
+        background: var(--card-bg);
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        transition: background 0.3s;
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .toggle-container {
+        text-align: right;
+        margin-bottom: 10px;
+    }
+
+    /* Recolored Dark Mode Button */
+    #darkToggle {
+        padding: 8px 16px;
+        font-size: 13px;
+        border: none;
+        border-radius: 20px; /* More pill-shaped */
+        cursor: pointer;
+        background: var(--toggle-bg);
+        color: var(--bg); /* Contrast with the button bg */
+        font-weight: bold;
+        transition: transform 0.2s, background 0.3s;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    #darkToggle:active {
+        transform: scale(0.95);
+    }
+
+    .section-label {
+        font-size: 20px;
+        font-weight: bold;
+        margin-top: 25px;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .row {
+        display: flex;
+        gap: 15px;
+        margin-top: 5px;
+    }
+
+    .input-wrap {
+        position: relative;
+        flex: 1;
+        min-width: 0;
+    }
+
+    .currency-label {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 18px;
+        font-weight: bold;
+        color: #000000;
+        pointer-events: none;
+    }
+
+    .row input {
+        width: 100%;
+        padding: 12px 35px 12px 55px; /* Added right padding for arrow space */
+        font-size: 24px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        text-align: center;
+        /* background: var(--card-bg); */
+        color: var(--text);
+        -moz-appearance: textfield;
+    }
+
+    /* Hide default browser arrows */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Custom Arrows Styling */
+    .arrows-stack {
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        bottom: 5px;
+        display: flex;
+        flex-direction: column;
+        width: 25px;
+        gap: 2px;
+    }
+
+    .arrows-stack button {
+        flex: 1;
+        border: none;
+        background: rgba(0,0,0,0.05);
+        color: var(--text);
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+    }
+
+    .dark .arrows-stack button {
+		color: #000000
+    }
+
+    .arrows-stack button:hover {
+        background: rgba(0,0,0,0.15);
+    }
+
+    input:focus {
+        border-color: var(--accent);
+        outline: none;
+        box-shadow: 0 0 4px rgba(11, 93, 30, 0.4);
+    }
+
+    .result {
+        margin-top: 30px;
+        padding: 20px;
+        background: var(--result-bg);
+        border-left: 5px solid var(--accent);
+        border-radius: 8px;
+        font-size: 28px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+	.result.negative {
+		background: #ffb3b3 !important;
+		border-left-color: #b30000 !important;
+	}
+
+    button.reset {
+        margin-top: 30px;
+        width: 100%;
+        padding: 18px;
+        font-size: 20px;
+        background: var(--button-bg);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    /* Mobile adjustments */
+    @media (max-width: 600px) {
+        body { padding: 10px; display: block; }
+        .container { padding: 15px; }
+        .row { gap: 8px; }
+        .row input { font-size: 18px; padding: 12px 30px 12px 42px; }
+        .currency-label { font-size: 14px; left: 8px; }
+        .section-label { font-size: 16px; }
+        .arrows-stack { width: 22px; }
+    }
+</style>
+</head>
+<body>
+
+<h2>КАЛКУЛАТОР РЕСТО</h2>
+
+<div class="container">
+
+    <div class="toggle-container">
+        <button id="darkToggle">🌙 Dark Mode</button>
+    </div>
+
+    <p style="text-align: center;">Курс: <strong>1 EUR = 1.95583 BGN</strong></p>
+
+    <label class="section-label">СМЕТКА ЗА ПЛАЩАНЕ</label>
+    <div class="row">
+        <div class="input-wrap">
+            <span class="currency-label">BGN</span>
+            <input type="number" inputmode="decimal" id="dueBGN">
+            <div class="arrows-stack">
+                <button onclick="handleStep('dueBGN', 0.01)">▲</button>
+                <button onclick="handleStep('dueBGN', -0.01)">▼</button>
+            </div>
+        </div>
+        <div class="input-wrap">
+            <span class="currency-label">EUR</span>
+            <input type="number" inputmode="decimal" id="dueEUR">
+            <div class="arrows-stack">
+                <button onclick="handleStep('dueEUR', 0.01)">▲</button>
+                <button onclick="handleStep('dueEUR', -0.01)">▼</button>
+            </div>
+        </div>
+    </div>
+
+    <label class="section-label">ПЛАТЕНА СУМА</label>
+    <div class="row">
+        <div class="input-wrap">
+            <span class="currency-label">BGN</span>
+            <input type="number" inputmode="decimal" id="paidBGN">
+            <div class="arrows-stack">
+                <button onclick="handleStep('paidBGN', 0.01)">▲</button>
+                <button onclick="handleStep('paidBGN', -0.01)">▼</button>
+            </div>
+        </div>
+        <div class="input-wrap">
+            <span class="currency-label">EUR</span>
+            <input type="number" inputmode="decimal" id="paidEUR">
+            <div class="arrows-stack">
+                <button onclick="handleStep('paidEUR', 0.01)">▲</button>
+                <button onclick="handleStep('paidEUR', -0.01)">▼</button>
+            </div>
+        </div>
+    </div>
+
+	<div id="resultBox" class="result" style="text-align: left;">
+		<div style="display: flex; justify-content: space-between; font-size: 22px;">
+			<strong id="labelBGN">Ресто:</strong>
+			<strong id="labelEUR">Ресто:</strong>
+		</div>
+
+		<div style="display: flex; justify-content: space-between; margin-top: 10px;">
+			<div>BGN <span id="changeBGN">0.00</span></div>
+			<div>EUR <span id="changeEUR">0.00</span></div>
+		</div>
+	</div>
+
+
+
+    <button class="reset" id="resetBtn">ИЗЧИСТИ</button>
+
+</div>
+
+<script>
+const RATE = 1.95583;
+
+function normalizeNumber(value) {
+    if (!value) return 0;
+    return parseFloat(value.toString().replace(",", "."));
+}
+
+function round(num) {
+    return Math.round(num * 100) / 100;
+}
+
+// Logic for custom stepping
+function handleStep(id, amount) {
+    const el = document.getElementById(id);
+    let currentVal = normalizeNumber(el.value);
+    el.value = (currentVal + amount).toFixed(2);
+    // Trigger input event manually so calculation runs
+    el.dispatchEvent(new Event('input'));
+}
+
+const inputs = ["paidBGN", "paidEUR", "dueBGN", "dueEUR"];
+
+inputs.forEach(id => {
+    const el = document.getElementById(id);
+
+    // Keyboard Arrow Support
+    el.addEventListener("keydown", function(e) {
+        if (e.key === "ArrowUp") {
+            e.preventDefault();
+            handleStep(id, 0.01);
+        } else if (e.key === "ArrowDown") {
+            e.preventDefault();
+            handleStep(id, -0.01);
+        }
+    });
+
+    el.addEventListener("input", function() {
+        const val = normalizeNumber(this.value);
+        if (this.value === "") {
+            const pairedId = id.includes("BGN") ? id.replace("BGN", "EUR") : id.replace("EUR", "BGN");
+            document.getElementById(pairedId).value = "";
+        } else {
+            if (id === "paidBGN") document.getElementById("paidEUR").value = round(val / RATE).toFixed(2);
+            if (id === "paidEUR") document.getElementById("paidBGN").value = round(val * RATE).toFixed(2);
+            if (id === "dueBGN") document.getElementById("dueEUR").value = round(val / RATE).toFixed(2);
+            if (id === "dueEUR") document.getElementById("dueBGN").value = round(val * RATE).toFixed(2);
+        }
+        calculateChange();
+    });
+});
+
+function calculateChange() {
+    const paidEUR = normalizeNumber(document.getElementById("paidEUR").value);
+    const dueEUR = normalizeNumber(document.getElementById("dueEUR").value);
+
+    const resultBox = document.getElementById("resultBox");
+    const labelBGN = document.getElementById("labelBGN");
+    const labelEUR = document.getElementById("labelEUR");
+
+    if (document.getElementById("paidEUR").value && document.getElementById("dueEUR").value) {
+        let changeEUR = round(paidEUR - dueEUR);
+        let changeBGN = round(changeEUR * RATE);
+
+        const isNegative = changeEUR < 0;
+
+        // Remove minus sign for display
+        const displayEUR = Math.abs(changeEUR).toFixed(2);
+        const displayBGN = Math.abs(changeBGN).toFixed(2);
+
+        document.getElementById("changeEUR").textContent = displayEUR;
+        document.getElementById("changeBGN").textContent = displayBGN;
+
+        if (isNegative) {
+            resultBox.classList.add("negative");
+            labelBGN.textContent = "Още за плащане:";
+            labelEUR.textContent = "Още за плащане:";
+        } else {
+            resultBox.classList.remove("negative");
+            labelBGN.textContent = "Ресто:";
+            labelEUR.textContent = "Ресто:";
+        }
+
+    } else {
+        document.getElementById("changeEUR").textContent = "0.00";
+        document.getElementById("changeBGN").textContent = "0.00";
+        resultBox.classList.remove("negative");
+        labelBGN.textContent = "Ресто:";
+        labelEUR.textContent = "Ресто:";
+    }
+}
+
+
+
+document.getElementById("resetBtn").addEventListener("click", function () {
+    inputs.forEach(id => document.getElementById(id).value = "");
+    document.getElementById("changeEUR").textContent = "0.00";
+    document.getElementById("changeBGN").textContent = "0.00";
+});
+
+
+document.getElementById("darkToggle").addEventListener("click", function () {
+    const isDark = document.body.classList.toggle("dark");
+    this.innerHTML = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
+});
+</script>
+
+</body>
+</html>
