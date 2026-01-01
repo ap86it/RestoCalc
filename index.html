@@ -256,8 +256,29 @@
         right: 3px;
         width: 22px;
     }
+
+.keypad {
+    display: none;
 }
 
+@media (max-width: 600px) {
+    .keypad {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin: 20px 0;
+    }
+
+    .keypad button {
+        padding: 15px;
+        font-size: 22px;
+        border-radius: 8px;
+        border: none;
+        background: var(--card-bg);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        cursor: pointer;
+    }
+}
 
 
 </style>
@@ -338,7 +359,6 @@
         <button data-key="0">0</button>
         <button data-key="del">⌫</button>
     </div>
-
     
     <button class="reset" id="resetBtn">ИЗЧИСТИ</button>
 
@@ -439,6 +459,7 @@ document.getElementById("darkToggle").addEventListener("click", function () {
 
 </body>
 </html>
+
 
 
 
