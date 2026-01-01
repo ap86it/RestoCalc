@@ -43,7 +43,6 @@
         transition: background 0.3s, color 0.3s;
         margin: 0;
         padding: 3px;
-        padding-top: 1px;
         min-height: 100vh;
         display: flex;
         flex-direction: column;
@@ -185,6 +184,10 @@
         font-size: 28px;
         font-weight: bold;
         text-align: center;
+    }
+
+    .result > div:last-child > div:last-child {
+        text-align: right;
     }
 
     .result.negative {
@@ -420,6 +423,7 @@ document.getElementById("darkToggle").addEventListener("click", function () {
 
 </body>
 </html>
+
 
 
 
