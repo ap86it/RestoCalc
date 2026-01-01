@@ -455,10 +455,39 @@ document.getElementById("darkToggle").addEventListener("click", function () {
     const isDark = document.body.classList.toggle("dark");
     this.innerHTML = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
 });
+
+// This is for the keyboard
+let activeInput = null;
+
+inputs.forEach(id => {
+    const el = document.getElementById(id);
+    el.addEventListener("click", () => {
+        activeInput = el;
+    });
+});
+
+document.querySelectorAll("#keypad button").forEach(btn => {
+    btn.addEventListener("click", () => {
+        if (!activeInput) return;
+
+        const key = btn.dataset.key;
+
+        if (key === "del") {
+            activeInput.value = activeInput.value.slice(0, -1);
+        } else {
+            activeInput.value += key;
+        }
+
+        activeInput.dispatchEvent(new Event("input"));
+    });
+});
+// End of the keyboard
+    
 </script>
 
 </body>
 </html>
+
 
 
 
