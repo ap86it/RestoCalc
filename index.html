@@ -210,6 +210,44 @@
         opacity: 0.7;
     }
 
+@media (max-width: 600px) {
+    body {
+        justify-content: flex-start;
+        padding-top: 10px;
+    }
+
+    .container {
+        padding: 15px;
+        max-width: 100%;
+    }
+
+    .row {
+        gap: 8px;
+    }
+
+    .input-wrap {
+        /* Make sure inputs can stretch as much as possible */
+        flex: 1;
+    }
+
+    .row input {
+        font-size: 22px;
+        padding: 10px 32px 10px 48px; /* less side padding = more space for numbers */
+    }
+
+    .currency-label {
+        left: 8px;
+        font-size: 16px;
+    }
+
+    .arrows-stack {
+        right: 3px;
+        width: 22px;
+    }
+}
+
+
+
 </style>
 </head>
 <body>
@@ -374,3 +412,4 @@ document.getElementById("darkToggle").addEventListener("click", function () {
 
 </body>
 </html>
+
