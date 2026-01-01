@@ -211,6 +211,20 @@
         font-weight: bold;
     }
 
+    .copyright {
+        margin-top: 15px;
+        text-align: center;
+        font-size: 12px;
+        opacity: 0.7;
+    }
+
+    .version {
+        margin-top: 3px;
+        text-align: center;
+        font-size: 12px;
+        opacity: 0.7;
+    }
+
     /* Mobile adjustments */
     @media (max-width: 600px) {
         body { padding: 10px; display: block; }
@@ -291,6 +305,9 @@
 
     <button class="reset" id="resetBtn">ИЗЧИСТИ</button>
 
+    <div class="copyright">© ap86it@gmail.com, 2025</div>
+    <div class="version">Version: 2.2</div>
+
 </div>
 
 <script>
@@ -298,8 +315,11 @@ const RATE = 1.95583;
 
 function normalizeNumber(value) {
     if (!value) return 0;
-    return parseFloat(value.toString().replace(",", "."));
+    // Replace comma with dot to ensure uniformity
+    value = value.toString().replace(",", ".");
+    return parseFloat(value);
 }
+
 
 function round(num) {
     return Math.round(num * 100) / 100;
@@ -402,3 +422,4 @@ document.getElementById("darkToggle").addEventListener("click", function () {
 
 </body>
 </html>
+
