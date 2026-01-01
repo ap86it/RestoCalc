@@ -18,7 +18,7 @@
         --result-bg: #c8f5c8;
         --button-bg: #d9534f;
         --button-hover: #c9302c;
-        --toggle-bg: #444; /* Dark neutral for the toggle */
+        --toggle-bg: #444;
     }
 
     .dark {
@@ -29,12 +29,12 @@
         --result-bg: #197d3a;
         --button-bg: #b33632;
         --button-hover: #992b28;
-        --toggle-bg: #f1f1f1; /* Light neutral for the toggle in dark mode */
+        --toggle-bg: #f1f1f1;
     }
 
-	.dark input {
-		color: #000000 !important;
-	}
+    .dark input {
+        color: #000000 !important;
+    }
 
     body {
         font-family: Arial, sans-serif;
@@ -74,15 +74,14 @@
         margin-bottom: 10px;
     }
 
-    /* Recolored Dark Mode Button */
     #darkToggle {
         padding: 8px 16px;
         font-size: 13px;
         border: none;
-        border-radius: 20px; /* More pill-shaped */
+        border-radius: 20px;
         cursor: pointer;
         background: var(--toggle-bg);
-        color: var(--bg); /* Contrast with the button bg */
+        color: var(--bg);
         font-weight: bold;
         transition: transform 0.2s, background 0.3s;
         box-shadow: 0 2px 5px rgba(0,0,0,0.2);
@@ -125,24 +124,14 @@
 
     .row input {
         width: 100%;
-        padding: 12px 35px 12px 55px; /* Added right padding for arrow space */
+        padding: 12px 35px 12px 55px;
         font-size: 24px;
         border: 1px solid #ccc;
         border-radius: 6px;
         text-align: center;
-        /* background: var(--card-bg); */
         color: var(--text);
-        -moz-appearance: textfield;
     }
 
-    /* Hide default browser arrows */
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
-
-    /* Custom Arrows Styling */
     .arrows-stack {
         position: absolute;
         right: 5px;
@@ -169,11 +158,7 @@
     }
 
     .dark .arrows-stack button {
-		color: #000000
-    }
-
-    .arrows-stack button:hover {
-        background: rgba(0,0,0,0.15);
+        color: #000000;
     }
 
     input:focus {
@@ -193,10 +178,10 @@
         text-align: center;
     }
 
-	.result.negative {
-		background: #ffb3b3 !important;
-		border-left-color: #b30000 !important;
-	}
+    .result.negative {
+        background: #ffb3b3 !important;
+        border-left-color: #b30000 !important;
+    }
 
     button.reset {
         margin-top: 30px;
@@ -225,16 +210,6 @@
         opacity: 0.7;
     }
 
-    /* Mobile adjustments */
-    @media (max-width: 600px) {
-        body { padding: 10px; display: block; }
-        .container { padding: 15px; }
-        .row { gap: 8px; }
-        .row input { font-size: 18px; padding: 12px 30px 12px 42px; }
-        .currency-label { font-size: 14px; left: 8px; }
-        .section-label { font-size: 16px; }
-        .arrows-stack { width: 22px; }
-    }
 </style>
 </head>
 <body>
@@ -253,7 +228,7 @@
     <div class="row">
         <div class="input-wrap">
             <span class="currency-label">BGN</span>
-            <input type="number" inputmode="decimal" id="dueBGN">
+            <input type="text" inputmode="decimal" id="dueBGN">
             <div class="arrows-stack">
                 <button onclick="handleStep('dueBGN', 0.01)">▲</button>
                 <button onclick="handleStep('dueBGN', -0.01)">▼</button>
@@ -261,7 +236,7 @@
         </div>
         <div class="input-wrap">
             <span class="currency-label">EUR</span>
-            <input type="number" inputmode="decimal" id="dueEUR">
+            <input type="text" inputmode="decimal" id="dueEUR">
             <div class="arrows-stack">
                 <button onclick="handleStep('dueEUR', 0.01)">▲</button>
                 <button onclick="handleStep('dueEUR', -0.01)">▼</button>
@@ -273,7 +248,7 @@
     <div class="row">
         <div class="input-wrap">
             <span class="currency-label">BGN</span>
-            <input type="number" inputmode="decimal" id="paidBGN">
+            <input type="text" inputmode="decimal" id="paidBGN">
             <div class="arrows-stack">
                 <button onclick="handleStep('paidBGN', 0.01)">▲</button>
                 <button onclick="handleStep('paidBGN', -0.01)">▼</button>
@@ -281,7 +256,7 @@
         </div>
         <div class="input-wrap">
             <span class="currency-label">EUR</span>
-            <input type="number" inputmode="decimal" id="paidEUR">
+            <input type="text" inputmode="decimal" id="paidEUR">
             <div class="arrows-stack">
                 <button onclick="handleStep('paidEUR', 0.01)">▲</button>
                 <button onclick="handleStep('paidEUR', -0.01)">▼</button>
@@ -289,24 +264,21 @@
         </div>
     </div>
 
-	<div id="resultBox" class="result" style="text-align: left;">
-		<div style="display: flex; justify-content: space-between; font-size: 22px;">
-			<strong id="labelBGN">Ресто:</strong>
-			<strong id="labelEUR">Ресто:</strong>
-		</div>
-
-		<div style="display: flex; justify-content: space-between; margin-top: 10px;">
-			<div>BGN <span id="changeBGN">0.00</span></div>
-			<div>EUR <span id="changeEUR">0.00</span></div>
-		</div>
-	</div>
-
-
+    <div id="resultBox" class="result" style="text-align: left;">
+        <div style="display: flex; justify-content: space-between; font-size: 22px;">
+            <strong id="labelBGN">Ресто:</strong>
+            <strong id="labelEUR">Ресто:</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+            <div>BGN <span id="changeBGN">0.00</span></div>
+            <div>EUR <span id="changeEUR">0.00</span></div>
+        </div>
+    </div>
 
     <button class="reset" id="resetBtn">ИЗЧИСТИ</button>
 
     <div class="copyright">© ap86it@gmail.com, 2025</div>
-    <div class="version">Version: 2.2</div>
+    <div class="version">Version: 2.1</div>
 
 </div>
 
@@ -315,22 +287,17 @@ const RATE = 1.95583;
 
 function normalizeNumber(value) {
     if (!value) return 0;
-    // Replace comma with dot to ensure uniformity
-    value = value.toString().replace(",", ".");
-    return parseFloat(value);
+    return parseFloat(value.toString().replace(",", "."));
 }
-
 
 function round(num) {
     return Math.round(num * 100) / 100;
 }
 
-// Logic for custom stepping
 function handleStep(id, amount) {
     const el = document.getElementById(id);
     let currentVal = normalizeNumber(el.value);
     el.value = (currentVal + amount).toFixed(2);
-    // Trigger input event manually so calculation runs
     el.dispatchEvent(new Event('input'));
 }
 
@@ -339,7 +306,6 @@ const inputs = ["paidBGN", "paidEUR", "dueBGN", "dueEUR"];
 inputs.forEach(id => {
     const el = document.getElementById(id);
 
-    // Keyboard Arrow Support
     el.addEventListener("keydown", function(e) {
         if (e.key === "ArrowUp") {
             e.preventDefault();
@@ -379,12 +345,8 @@ function calculateChange() {
 
         const isNegative = changeEUR < 0;
 
-        // Remove minus sign for display
-        const displayEUR = Math.abs(changeEUR).toFixed(2);
-        const displayBGN = Math.abs(changeBGN).toFixed(2);
-
-        document.getElementById("changeEUR").textContent = displayEUR;
-        document.getElementById("changeBGN").textContent = displayBGN;
+        document.getElementById("changeEUR").textContent = Math.abs(changeEUR).toFixed(2);
+        document.getElementById("changeBGN").textContent = Math.abs(changeBGN).toFixed(2);
 
         if (isNegative) {
             resultBox.classList.add("negative");
@@ -395,24 +357,14 @@ function calculateChange() {
             labelBGN.textContent = "Ресто:";
             labelEUR.textContent = "Ресто:";
         }
-
-    } else {
-        document.getElementById("changeEUR").textContent = "0.00";
-        document.getElementById("changeBGN").textContent = "0.00";
-        resultBox.classList.remove("negative");
-        labelBGN.textContent = "Ресто:";
-        labelEUR.textContent = "Ресто:";
     }
 }
-
-
 
 document.getElementById("resetBtn").addEventListener("click", function () {
     inputs.forEach(id => document.getElementById(id).value = "");
     document.getElementById("changeEUR").textContent = "0.00";
     document.getElementById("changeBGN").textContent = "0.00";
 });
-
 
 document.getElementById("darkToggle").addEventListener("click", function () {
     const isDark = document.body.classList.toggle("dark");
@@ -422,4 +374,3 @@ document.getElementById("darkToggle").addEventListener("click", function () {
 
 </body>
 </html>
-
