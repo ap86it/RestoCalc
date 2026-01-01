@@ -6,9 +6,7 @@
 <title>КАЛКУЛАТОР РЕСТО</title>
 <style>
     /* Global Box Sizing */
-    * {
-        box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     :root {
         --bg: #f7f9fc;
@@ -32,9 +30,7 @@
         --toggle-bg: #f1f1f1;
     }
 
-    .dark input {
-        color: #000000 !important;
-    }
+    .dark input { color: #000 !important; }
 
     body {
         font-family: Arial, sans-serif;
@@ -50,14 +46,7 @@
         justify-content: center;
     }
 
-    h2 {
-        text-align: center;
-        margin-bottom: 15px;
-        margin-top: 0;
-        font-weight: 600;
-        width: 100%;
-        max-width: 600px;
-    }
+    h2 { text-align: center; margin-bottom: 15px; margin-top: 0; font-weight: 600; width: 100%; max-width: 600px; }
 
     .container {
         background: var(--card-bg);
@@ -69,10 +58,7 @@
         max-width: 500px;
     }
 
-    .toggle-container {
-        text-align: right;
-        margin-bottom: 10px;
-    }
+    .toggle-container { text-align: right; margin-bottom: 10px; }
 
     #darkToggle {
         padding: 8px 16px;
@@ -87,9 +73,7 @@
         box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
 
-    #darkToggle:active {
-        transform: scale(0.95);
-    }
+    #darkToggle:active { transform: scale(0.95); }
 
     .section-label {
         font-size: 20px;
@@ -99,17 +83,9 @@
         display: block;
     }
 
-    .row {
-        display: flex;
-        gap: 15px;
-        margin-top: 5px;
-    }
+    .row { display: flex; gap: 15px; margin-top: 5px; }
 
-    .input-wrap {
-        position: relative;
-        flex: 1;
-        min-width: 0;
-    }
+    .input-wrap { position: relative; flex: 1; min-width: 0; }
 
     .currency-label {
         position: absolute;
@@ -157,9 +133,7 @@
         padding: 0;
     }
 
-    .dark .arrows-stack button {
-        color: #000000;
-    }
+    .dark .arrows-stack button { color: #000000; }
 
     input:focus {
         border-color: var(--accent);
@@ -175,7 +149,7 @@
         border-radius: 8px;
         font-size: 28px;
         font-weight: bold;
-        text-align: center;
+        text-align: left;
     }
 
     .result.negative {
@@ -196,20 +170,29 @@
         font-weight: bold;
     }
 
-    .copyright {
-        margin-top: 15px;
-        text-align: center;
-        font-size: 12px;
-        opacity: 0.7;
+    .copyright { margin-top: 15px; text-align: center; font-size: 12px; opacity: 0.7; }
+
+    .version { margin-top: 3px; text-align: center; font-size: 12px; opacity: 0.7; }
+
+    /* MOBILE KEYBOARD */
+    .mobile-keyboard {
+        display: none;
+        margin-top: 20px;
+        gap: 10px;
+        grid-template-columns: repeat(3, 1fr);
     }
 
-    .version {
-        margin-top: 3px;
-        text-align: center;
-        font-size: 12px;
-        opacity: 0.7;
+    .mobile-keyboard button {
+        padding: 18px;
+        font-size: 22px;
+        border-radius: 8px;
+        border: none;
+        font-weight: bold;
     }
 
+    @media (max-width: 768px) {
+        .mobile-keyboard { display: grid; }
+    }
 </style>
 </head>
 <body>
@@ -217,7 +200,6 @@
 <h2>КАЛКУЛАТОР РЕСТО</h2>
 
 <div class="container">
-
     <div class="toggle-container">
         <button id="darkToggle">🌙 Dark Mode</button>
     </div>
@@ -264,7 +246,7 @@
         </div>
     </div>
 
-    <div id="resultBox" class="result" style="text-align: left;">
+    <div id="resultBox" class="result">
         <div style="display: flex; justify-content: space-between; font-size: 22px;">
             <strong id="labelBGN">Ресто:</strong>
             <strong id="labelEUR">Ресто:</strong>
@@ -275,11 +257,26 @@
         </div>
     </div>
 
+    <!-- MOBILE KEYBOARD -->
+    <div id="mobileKeyboard" class="mobile-keyboard">
+        <button data-key="1">1</button>
+        <button data-key="2">2</button>
+        <button data-key="3">3</button>
+        <button data-key="4">4</button>
+        <button data-key="5">5</button>
+        <button data-key="6">6</button>
+        <button data-key="7">7</button>
+        <button data-key="8">8</button>
+        <button data-key="9">9</button>
+        <button data-key=",">,</button>
+        <button data-key="0">0</button>
+        <button data-key="back">⌫</button>
+    </div>
+
     <button class="reset" id="resetBtn">ИЗЧИСТИ</button>
 
     <div class="copyright">© ap86it@gmail.com, 2025</div>
     <div class="version">Version: 2.1</div>
-
 </div>
 
 <script>
@@ -290,9 +287,7 @@ function normalizeNumber(value) {
     return parseFloat(value.toString().replace(",", "."));
 }
 
-function round(num) {
-    return Math.round(num * 100) / 100;
-}
+function round(num) { return Math.round(num * 100)/100; }
 
 function handleStep(id, amount) {
     const el = document.getElementById(id);
@@ -307,25 +302,20 @@ inputs.forEach(id => {
     const el = document.getElementById(id);
 
     el.addEventListener("keydown", function(e) {
-        if (e.key === "ArrowUp") {
-            e.preventDefault();
-            handleStep(id, 0.01);
-        } else if (e.key === "ArrowDown") {
-            e.preventDefault();
-            handleStep(id, -0.01);
-        }
+        if (e.key === "ArrowUp") { e.preventDefault(); handleStep(id, 0.01); }
+        else if (e.key === "ArrowDown") { e.preventDefault(); handleStep(id, -0.01); }
     });
 
     el.addEventListener("input", function() {
         const val = normalizeNumber(this.value);
         if (this.value === "") {
-            const pairedId = id.includes("BGN") ? id.replace("BGN", "EUR") : id.replace("EUR", "BGN");
+            const pairedId = id.includes("BGN") ? id.replace("BGN","EUR") : id.replace("EUR","BGN");
             document.getElementById(pairedId).value = "";
         } else {
-            if (id === "paidBGN") document.getElementById("paidEUR").value = round(val / RATE).toFixed(2);
-            if (id === "paidEUR") document.getElementById("paidBGN").value = round(val * RATE).toFixed(2);
-            if (id === "dueBGN") document.getElementById("dueEUR").value = round(val / RATE).toFixed(2);
-            if (id === "dueEUR") document.getElementById("dueBGN").value = round(val * RATE).toFixed(2);
+            if (id==="paidBGN") document.getElementById("paidEUR").value = round(val/RATE).toFixed(2);
+            if (id==="paidEUR") document.getElementById("paidBGN").value = round(val*RATE).toFixed(2);
+            if (id==="dueBGN") document.getElementById("dueEUR").value = round(val/RATE).toFixed(2);
+            if (id==="dueEUR") document.getElementById("dueBGN").value = round(val*RATE).toFixed(2);
         }
         calculateChange();
     });
@@ -334,7 +324,6 @@ inputs.forEach(id => {
 function calculateChange() {
     const paidEUR = normalizeNumber(document.getElementById("paidEUR").value);
     const dueEUR = normalizeNumber(document.getElementById("dueEUR").value);
-
     const resultBox = document.getElementById("resultBox");
     const labelBGN = document.getElementById("labelBGN");
     const labelEUR = document.getElementById("labelEUR");
@@ -342,34 +331,53 @@ function calculateChange() {
     if (document.getElementById("paidEUR").value && document.getElementById("dueEUR").value) {
         let changeEUR = round(paidEUR - dueEUR);
         let changeBGN = round(changeEUR * RATE);
-
         const isNegative = changeEUR < 0;
-
         document.getElementById("changeEUR").textContent = Math.abs(changeEUR).toFixed(2);
         document.getElementById("changeBGN").textContent = Math.abs(changeBGN).toFixed(2);
 
         if (isNegative) {
             resultBox.classList.add("negative");
-            labelBGN.textContent = "Още за плащане:";
-            labelEUR.textContent = "Още за плащане:";
+            labelBGN.textContent = labelEUR.textContent = "Още за плащане:";
         } else {
             resultBox.classList.remove("negative");
-            labelBGN.textContent = "Ресто:";
-            labelEUR.textContent = "Ресто:";
+            labelBGN.textContent = labelEUR.textContent = "Ресто:";
         }
     }
 }
 
-document.getElementById("resetBtn").addEventListener("click", function () {
+document.getElementById("resetBtn").addEventListener("click", function() {
     inputs.forEach(id => document.getElementById(id).value = "");
     document.getElementById("changeEUR").textContent = "0.00";
     document.getElementById("changeBGN").textContent = "0.00";
 });
 
-document.getElementById("darkToggle").addEventListener("click", function () {
+document.getElementById("darkToggle").addEventListener("click", function() {
     const isDark = document.body.classList.toggle("dark");
     this.innerHTML = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
 });
+
+/* -------- MOBILE KEYBOARD LOGIC -------- */
+const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+let activeInput = null;
+
+if (isMobile) {
+    inputs.forEach(id => {
+        const el = document.getElementById(id);
+        el.readOnly = true;
+        el.addEventListener("focus", () => { activeInput = el; });
+        el.addEventListener("blur", () => { activeInput = null; });
+    });
+
+    document.querySelectorAll("#mobileKeyboard button").forEach(btn => {
+        btn.addEventListener("click", () => {
+            if (!activeInput) return;
+            const key = btn.dataset.key;
+            if (key === "back") activeInput.value = activeInput.value.slice(0,-1);
+            else activeInput.value += key;
+            activeInput.dispatchEvent(new Event("input"));
+        });
+    });
+}
 </script>
 
 </body>
