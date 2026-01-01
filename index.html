@@ -42,7 +42,8 @@
         color: var(--text);
         transition: background 0.3s, color 0.3s;
         margin: 0;
-        padding: 2px;
+        padding: 3px;
+        padding-top: 10px;
         min-height: 100vh;
         display: flex;
         flex-direction: column;
@@ -185,6 +186,13 @@
         font-weight: bold;
         text-align: center;
     }
+
+    #changeEUR {
+        display: inline-block;
+        text-align: right;
+        min-width: 90px; /* ensures stable alignment even with long values */
+    }
+
 
     .result.negative {
         background: #ffb3b3 !important;
@@ -419,6 +427,7 @@ document.getElementById("darkToggle").addEventListener("click", function () {
 
 </body>
 </html>
+
 
 
 
