@@ -69,11 +69,19 @@
         max-width: 500px;
     }
 
-    .toggle-container {
-        text-align: right;
-        margin-bottom: 10px;
+    .top-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
     }
 
+    .rate-text {
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    
     #darkToggle {
         padding: 8px 16px;
         font-size: 13px;
@@ -256,9 +264,11 @@
 
 <div class="container">
 
-    <div class="toggle-container">
+    <div class="top-bar">
+        <div class="rate-text">Курс: <strong>1 EUR = 1.95583 BGN</strong></div>
         <button id="darkToggle">🌙 Dark Mode</button>
     </div>
+
 
     <p style="text-align: center;">Курс: <strong>1 EUR = 1.95583 BGN</strong></p>
 
@@ -412,4 +422,5 @@ document.getElementById("darkToggle").addEventListener("click", function () {
 
 </body>
 </html>
+
 
