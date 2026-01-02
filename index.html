@@ -208,10 +208,6 @@
         font-weight: bold;
     }
 
-    .keypad {
-        display: none;
-    }
-    
     .copyright {
         margin-top: 15px;
         text-align: center;
@@ -260,31 +256,7 @@
         right: 3px;
         width: 22px;
     }
-
-@media (max-width: 600px) {
-    .keypad {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
-        margin: 20px 0;
-    }
-
-    .keypad button {
-        padding: 15px;
-        font-size: 22px;
-        border-radius: 8px;
-        border: none;
-        background: var(--card-bg);
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        cursor: pointer;
-    }
-
-@media (max-width: 600px) {
-    input {
-        caret-color: transparent;
-    }
 }
-
 
 
 </style>
@@ -351,21 +323,6 @@
         </div>
     </div>
 
-    <div id="keypad" class="keypad">
-        <button data-key="1">1</button>
-        <button data-key="2">2</button>
-        <button data-key="3">3</button>
-        <button data-key="4">4</button>
-        <button data-key="5">5</button>
-        <button data-key="6">6</button>
-        <button data-key="7">7</button>
-        <button data-key="8">8</button>
-        <button data-key="9">9</button>
-        <button data-key=".">.</button>
-        <button data-key="0">0</button>
-        <button data-key="del">⌫</button>
-    </div>
-    
     <button class="reset" id="resetBtn">ИЗЧИСТИ</button>
 
         <div class="copyright">© ap86it@gmail.com, 2026</div>
@@ -461,52 +418,7 @@ document.getElementById("darkToggle").addEventListener("click", function () {
     const isDark = document.body.classList.toggle("dark");
     this.innerHTML = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
 });
-
-// This is for the keyboard
-let activeInput = null;
-
-inputs.forEach(id => {
-    const el = document.getElementById(id);
-    el.addEventListener("click", () => {
-        activeInput = el;
-    });
-});
-
-document.querySelectorAll("#keypad button").forEach(btn => {
-    btn.addEventListener("click", () => {
-        if (!activeInput) return;
-
-        const key = btn.dataset.key;
-
-        if (key === "del") {
-            activeInput.value = activeInput.value.slice(0, -1);
-        } else {
-            activeInput.value += key;
-        }
-
-        activeInput.dispatchEvent(new Event("input"));
-    });
-});
-// End of the keyboard
-    
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
