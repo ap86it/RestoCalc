@@ -304,7 +304,7 @@
     <div class="row">
         <div class="input-wrap">
             <span class="currency-label">BGN</span>
-            <input type="text" inputmode="decimal" id="dueBGN">
+            <input type="text" inputmode="decimal" id="dueBGN" readonly>
             <div class="arrows-stack">
                 <button onclick="handleStep('dueBGN', 0.01)">▲</button>
                 <button onclick="handleStep('dueBGN', -0.01)">▼</button>
@@ -312,7 +312,7 @@
         </div>
         <div class="input-wrap">
             <span class="currency-label">EUR</span>
-            <input type="text" inputmode="decimal" id="dueEUR">
+            <input type="text" inputmode="decimal" id="dueEUR" readonly>
             <div class="arrows-stack">
                 <button onclick="handleStep('dueEUR', 0.01)">▲</button>
                 <button onclick="handleStep('dueEUR', -0.01)">▼</button>
@@ -493,6 +493,7 @@ document.querySelectorAll("#keypad button").forEach(btn => {
 
 </body>
 </html>
+
 
 
 
